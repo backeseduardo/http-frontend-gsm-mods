@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>HTTP-FRONTEND-GSM-MODS</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="wrapper">
+    <h1>HTTP-FRONTEND-GSM-MODS</h1>
+    
+    <h3>Enviar mensagem para todos os dispositivos conectados</h3>
+    <input type="text" name="text-to-send" id="text-to-send">
+    <button type="button" id="btn-send">Enviar</button>
+
+    <br/>
+
+    <h3>Log das coneções</h3>
+    <button type="button" id="btn-clear-log">Limpar log</button>
+    <br/>
+    <pre id="log"></pre>
+
+  </div>
+
+  <script>
+  (function() {
+    'use strict'
+
+    document.getElementById('btn-send').onclick = send
+    document.getElementById('btn-clear-log').onclick = () => {
+      fetch('/api/log/clear')
+        .then(() => readLog())
+    }
+
+    setInterval(() => {
+      readLog()
+    }, 5000)
+
+    readLog()
+
+    function readLog() {
+      fetch('/api/log')
+        .then(res => res.text())
+        .then(text => document.getElementById('log').innerText = text)
+    }
+
+    function send() {
+      fetch(`/api/send/${document.getElementById('text-to-send').value}`)
+    }
+  })()
+  </script>
+</body>
+</html>

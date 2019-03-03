@@ -1,0 +1,24 @@
+{
+  "name": "http-frontend-gsm-mods",
+  "version": "1.0.0",
+  "description": "Http frontend for the tcp-backend-gsm-mods project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/backeseduardo/http-frontend-gsm-mods.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/backeseduardo/http-frontend-gsm-mods/issues"
+  },
+  "homepage": "https://github.com/backeseduardo/http-frontend-gsm-mods#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
