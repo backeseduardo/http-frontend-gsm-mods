@@ -13,8 +13,10 @@
     <h1>HTTP-FRONTEND-GSM-MODS</h1>
     
     <h3>Enviar mensagem para todos os dispositivos conectados</h3>
-    <input type="text" name="text-to-send" id="text-to-send">
-    <button type="button" id="btn-send">Enviar</button>
+    <form id="form-send" autocomplete="off">
+      <input type="text" name="text-to-send" id="text-to-send">
+      <button type="submit">Enviar</button>
+    </form>
 
     <br/>
 
@@ -29,7 +31,7 @@
   (function() {
     'use strict'
 
-    document.getElementById('btn-send').onclick = send
+    document.getElementById('form-send').onsubmit = send
     document.getElementById('btn-clear-log').onclick = () => {
       fetch('/api/log/clear')
         .then(() => readLog())
@@ -47,8 +49,18 @@
         .then(text => document.getElementById('log').innerText = text)
     }
 
-    function send() {
-      fetch(`/api/send/${document.getElementById('text-to-send').value}`)
+    function send(ev) {
+      ev.preventDefault()
+
+      fetch('/api/send', {
+        method: 'POST',
+        body: JSON.stringify({ text: document.getElementById('text-to-send').value }),
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        }
+      })
+        .then(() => document.getElementById('text-to-send').value = '')
+        .catch(() => document.getElementById('text-to-send').value = '')
     }
   })()
   </script>
