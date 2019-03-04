@@ -13,9 +13,9 @@ router.get('/', function (req, res) {
   res.send('Api home page')
 })
 
-router.get('/send/:text', function (req, res) {
+router.post('/send', function (req, res) {
   fs.writeFile(path.dirname(__filename)+'/../../../tcp-backend-gsm-mods/data/sendto.txt',
-    req.params.text,
+    req.body.text,
     {
       encoding: 'utf8',
       flag: 'w'
@@ -35,7 +35,7 @@ router.get('/log', function (req, res) {
     flag: 'r'
   }, (err, data) => {
     if (err) {
-      res.send(err)
+      res.send(null)
     } else {
       res.send(data)
     }
