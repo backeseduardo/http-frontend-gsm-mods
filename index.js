@@ -1,10 +1,11 @@
 const express = require('express')
+const path = require('path')
 const bodyParser = require('body-parser')
 const app = express()
-const port = 3000
+const port = 80
 
 app.use(bodyParser.json())
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./src/routes/index'))
 app.use('/api', require('./src/routes/api'))
